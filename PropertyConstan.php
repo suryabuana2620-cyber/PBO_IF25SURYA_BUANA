@@ -1,36 +1,49 @@
-
 <?php
 
 class Produk {
+
     // Property
     public string $kode;
     public string $nama;
     public int $harga;
     public int $stok;
 
-    // Constant
-    const PAJAK = 0.11;
+    // Konstanta
+    public const PAJAK = 0.11;
+
+    // Method static untuk menghitung persentase pajak
+    public static function pajak() {
+        return self::PAJAK * 100;
+    }
+
+    // Method static untuk menghitung total harga
+    public static function total($harga) {
+        return $harga + ($harga * self::PAJAK);
+    }
 }
 
-// Membuat object
+// Object
 $produk = new Produk();
 
-// Mengisi property
-$produk->kode = "P001";
-$produk->nama = "Laptop";
+$produk->kode = 'P0001';
+$produk->nama = 'Laptop';
 $produk->harga = 10000000;
 $produk->stok = 5;
 
-// Menghitung pajak
-$pajak = $produk->harga * Produk::PAJAK;
-$totalHarga = $produk->harga + $pajak;
+// Hasil
+echo "Produk: " . $produk->nama;
+echo "<br>";
 
-// Menampilkan output
-echo "Produk: " . $produk->nama . PHP_EOL;
-echo "Harga: Rp" . number_format($produk->harga, 0, ',', '.') . PHP_EOL;
-echo "Stok: " . $produk->stok . PHP_EOL;
-echo "Pajak: " . (Produk::PAJAK * 100) . "%" . PHP_EOL;
-echo "Total harga setelah pajak: Rp" .
-    number_format($totalHarga, 0, ',', '.') . PHP_EOL;
+echo "Harga: " . $produk->harga;
+echo "<br>";
+
+echo "Stok: " . $produk->stok;
+echo "<br>";
+
+echo "Pajak: " . Produk::pajak() . "%";
+echo "<br><br>";
+
+echo "Total harga setelah pajak: Rp." .
+     Produk::total($produk->harga);
 
 ?>
